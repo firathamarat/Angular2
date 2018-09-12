@@ -1,0 +1,42 @@
+<!-- OWB tek yönlüdür Textbox üzerinden yapılan bir değişiklik değişkenleri veya objeleri etkilememektedir -->
+<h1>One Way Binding Example</h1>
+<input type="text" [value]="strName">&nbsp;
+<input type="text" [value]="strSurname">&nbsp;
+<input type="button" value="Gönder">
+<br>
+<p>Girilen Defult Kullanıcı Bilgileri: {{strName}} {{strSurname}}</p>
+
+
+<br> <!-- Boşluk bırakıldı -->
+
+
+<!-- TWB çift yönlüdür Textbox üzerinden yapılan bir değişiklik değişkenleri veya objeleri etkilemektedir -->
+<h1>Two Way Binding Example</h1>
+<input type="text" [(ngModel)]="personName">&nbsp;
+<input type="text" [(ngModel)]="personSurname">&nbsp;
+<input type="button" value="Gönder">
+<br>
+<p>Girilen Two Binding Kullanıcı Değerleri: {{personName}} {{personSurname}}</p>
+
+
+<br> <!-- Boşluk bırakıldı -->
+
+<!-- keypress event'i ile bir tuşa basıldığında onlyNumbers fonksiyonu çalıştırıldı ve event değeri gönderildi
+     click event'i ile onayFunction fonksiyonu çalıştırıldı -->
+<h2>Fatura Bilgilendirme Ekranı</h2>
+<input type="text" [(ngModel)]="faturaSeriNo" placeholder="Seri Numarası">&nbsp;
+<input type="text" [(ngModel)]="faturaSahibi" placeholder="T.C. Numarası" (keypress)="onlyNumbers($event)">&nbsp;
+<input type="button" value="Onayla" (click)="onayFunction()"><br>
+<span>İşleminize {{faturaSeriNo}} - {{faturaSahibi}} ile devam edilmektedir...</span>
+
+
+<br><br> <!-- Boşluk bırakıldı -->
+
+
+<h2>E-Posta Onaylama</h2>
+<input type="text" #txtEmail>&nbsp;
+<input type="button" value="Onayla" (click)="CheckMail(txtEmail.value)">
+
+<br><br>
+
+<!-- Referans:#txtEmail ile bir model verdik gibi düşünebiliriz, txtEmail.value ile ilgili textbox değerini alınabilir -->

@@ -1,0 +1,115 @@
+<div class="container pagination-centered" style="width: 500px">
+
+    <form #form="ngForm" (submit)="submitForm(form)" novalidate>
+
+
+        <div class="" style="text-align: center; margin-top: 50px;">
+            <img style="width: 475px" src="https://www.google.com.tr/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png">
+        </div>
+
+
+        <!-- model.departmentName modelinde pattern="^Q.*" ifadesiyle ilk harfi D ile başlaması koşulu girildi
+            
+            Girilen il harfin büyük olmasını sağlamak için bir event tetiklenmesi gerekmektedir
+            (ngModelChange)="upperCase($event)" ile ngModel değiştiğinde form-validate-custom.component dosyasındatanımlanan upperCasefonksiyonu tetiklenecektir -->
+
+        <div class="form-group" [class.has-error]="departmentName.invalid && departmentName.dirty">
+
+            <label class="control-label">Departman Adı: </label>
+            <input class="form-control" type="text" #departmentName="ngModel" [(ngModel)]="model.departmentName" name="departmentName"
+                required minlength="5" pattern="^D.*" (ngModelChange)="upperCase($event, 'departmentName')">
+
+            <!-- Her bir input için bir fonksiyon kullanılacak ise upperCase($event) işimizi görecektir
+                fakat aynı fonksiyon içerisinde birden fazla input ve görev yer alacaksa extra bir parametreye ihtiyac duyulmaktadır -->
+
+            <div *ngIf="departmentName.invalid && departmentName.dirty" class="alert alert-danger">Departman Adı "D" harfiyle
+                başlaması ve en az 5 karakter olması gerekmektedir!</div>
+
+        </div>
+
+
+
+        <!-- Departman adresinin tamamının büyük harf ile yazılması istenmektedir -->
+        <div class="form-group" [class.has-error]="departmentAddress.invalid && departmentAddress.touched">
+
+            <label class="control-label">Departman Adresi: </label>
+            <input class="form-control" type="text" #departmentAddress="ngModel" [(ngModel)]="model.departmentAddress" name="departmentAddress"
+                required minlength="10" (ngModelChange)="upperCase($event, 'departmentAddress')">
+
+            <div *ngIf="departmentAddress.invalid && departmentAddress.touched" class="alert alert-danger">Departman adresinin
+                en az 10 karakter olmak üzere girilmesi gerekmektedir!</div>
+
+        </div>
+
+
+        <div class="form-group" [class.has-error]="email.invalid && email.touched">
+            <label class="control-label">E-posta Adresi:</label>
+            <input class="form-control" type="text" #email="ngModel" [(ngModel)]="model.email" name="email" [pattern]="emailPattern" placeholder="bill@microsoft.com">
+
+            <!-- form-validate-custom.component içinde emailPattern tanımlandı -->
+
+            <div *ngIf="email.invalid && email.touched" class="alert alert-danger">Lütfen geçerli bir e-posta adresi giriniz!</div>
+        </div>
+
+
+
+        <!-- Sadece sayıların girilebilmesi için keypress event oluşturuldu ve form-validate-custom.component componentinde salleryCheckValue fonksiyonu tetiklendi -->
+
+        <div class="form-group">
+            <label class="control-label">Maaş Beklentisi: </label>
+            <input class="form-control" type="text" #sallery="ngModel" [(ngModel)]="model.sallery" name="sallery" (keypress)="salleryCheckValue($event)">
+        </div>
+
+
+
+
+        <!-- Component sayfasında hasLanguageError değişkeni oluşturuldu -->
+        <div class="form-group" [class.has-error]="hasLanguageError && language.dirty">
+            <label class="control-label">Lütfen Dil Seçiniz:</label>
+
+            <!-- Blur: Ayrıldığında Change: Değiştirildiğinde-->
+            <select class="form-control" #language="ngModel" name="language" [(ngModel)]="model.language" (blur)="validateLanguage(language.value)"
+                (change)="validateLanguage(language.value)">
+
+                <!--Seçili olarak gelmesi için value değeri eklendi ve modele eklenmesi gerekmektedir. Eklentikten sonra component üzerinde değer default verilmelidir -->
+                <option value="default">Bir dil seçiniz:</option>
+
+                <!--form.validate.component.ts dosyasında languages dizisi oluşturup ngIf ile option nesneleri döndürüldü ve expression ile gösterildi -->
+                <option *ngFor="let language of languages">{{language}}</option>
+
+            </select>
+
+        </div>
+
+
+        <!-- Eklenen her bir nesne modelde de olmalıdır -->
+
+        <label>Sözleşme Onayı</label>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="isContract" [(ngModel)]="model.isContract"> Sözleşmeden yer alan maddeleri okudum
+                kabul ediliyorum.
+            </label>
+        </div>
+
+        <br>
+
+        <label>Ek belge göndermek ister misiniz?</label>
+        <div class="radio">
+            <label>
+                <input type="radio" name="attachment" value="yes" [(ngModel)]="model.attachment"> Evet
+                <input type="radio" name="attachment" value="no" [(ngModel)]="model.attachment"> Hayır
+            </label>
+        </div>
+
+        <div class="radio">
+            <label>
+
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary container" [disabled]="form.invalid==true || hasLanguageError==true || model.isContract==false">Kaydet</button>
+
+    </form>
+
+</div>

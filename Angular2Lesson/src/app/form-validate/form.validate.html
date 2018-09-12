@@ -1,0 +1,114 @@
+<div class="container pagination-centered" style="width: 500px">
+
+    <!-- NOT: Varsayılan browser validation'u kapatmak için novalidate kullanılır
+         Referans kısımları # ile belirlenmiştir -->
+
+    <form #form="ngForm" (submit)="submitForm(form)" novalidate>
+
+
+
+        <div class="" style="text-align: center; margin-top: 50px;">
+            <img style="width: 475px" src="https://www.google.com.tr/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png">
+        </div>
+
+
+
+        <!-- Departman Adı input alanı required ile dolduldurulması zorunlu hale getirildi ve minlength ile en az 5 karakter girilmesi gerektiği belirtildi
+             NOT: ngModel belirlendikten sonra mutlaka name belirlenmelidir 
+             
+             invalid: Geçersiz olması durumu
+             dirty: Bir değişiklik olması durumunu temsil eder -->
+
+        <div class="form-group" [class.has-error]="departmentName.invalid && departmentName.dirty">
+
+            <label class="control-label">Departman Adı: </label>
+            <input class="form-control" type="text" #departmentName="ngModel" [(ngModel)]="model.departmentName" name="departmentName"
+                required minlength="5">
+
+            <div *ngIf="departmentName.invalid && departmentName.dirty" class="alert alert-danger">Departman adı en az 5
+                karakter olmak üzere girilmesi gerekmektedir!</div>
+
+        </div>
+
+
+
+        <!-- touched: input alanına yazılma anında değil ilgili nesne üzerinden ayrılması durumunda işlev görmektedir -->
+        <div class="form-group" [class.has-error]="departmentAddress.invalid && departmentAddress.touched">
+
+            <label class="control-label">Departman Adresi: </label>
+            <input class="form-control" type="text" #departmentAddress="ngModel" [(ngModel)]="model.departmentAddress" name="departmentAddress"
+                required minlength="10">
+
+            <div *ngIf="departmentAddress.invalid && departmentAddress.touched" class="alert alert-danger">Departman adresinin
+                en az 10 karakter olmak üzere girilmesi gerekmektedir!</div>
+
+        </div>
+
+
+
+        <!-- Component sayfasında hasLanguageError değişkeni oluşturuldu -->
+        <div class="form-group" [class.has-error]="hasLanguageError && language.dirty">
+            <label class="control-label">Lütfen Dil Seçiniz:</label>
+
+            <!-- Blur: Ayrıldığında Change: Değiştirildiğinde-->
+            <select class="form-control" #language="ngModel" name="language" [(ngModel)]="model.language" (blur)="validateLanguage(language.value)"
+                (change)="validateLanguage(language.value)">
+
+                <!--Seçili olarak gelmesi için value değeri eklendi ve modele eklenmesi gerekmektedir. Eklentikten sonra component üzerinde değer default verilmelidir -->
+                <option value="default">Bir dil seçiniz:</option>
+
+                <!--form.validate.component.ts dosyasında languages dizisi oluşturup ngIf ile option nesneleri döndürüldü ve expression ile gösterildi -->
+                <option *ngFor="let language of languages">{{language}}</option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- Eklenen her bir nesne modelde de olmalıdır -->
+
+        <label>Sözleşme Onayı</label>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="isContract" [(ngModel)]="model.isContract"> Sözleşmeden yer alan maddeleri okudum
+                kabul ediliyorum.
+            </label>
+        </div>
+
+        <br>
+
+        <label>Ek belge göndermek ister misiniz?</label>
+        <div class="radio">
+            <label>
+                <input type="radio" name="attachment" value="yes" [(ngModel)]="model.attachment"> Evet
+                <input type="radio" name="attachment" value="no" [(ngModel)]="model.attachment"> Hayır
+            </label>
+        </div>
+
+        <div class="radio">
+            <label>
+
+            </label>
+        </div>
+
+
+        <!-- formun invalid özelliğinin true olması, hasLanguageError değişkenin true değer taşıması ve isContract modelinin false değer taşıması durumlarından biri gerçekleşmesi durumunda buton disable olacaktır  -->
+
+        <button type="submit" class="btn btn-primary container" [disabled]="form.invalid==true || hasLanguageError==true || model.isContract==false">Kaydet</button>
+
+        <hr>
+        <hr>
+
+        <div class="container">
+
+            <b>FORM ÖZETİ</b> | → Pristine: {{form.pristine}} - Valid: {{form.valid}} <br> Departman Adı : {{model.departmentName}}<br>            Departman
+            Adresi : {{model.departmentAddress}}<br> Seçilen Dil : {{model.language}}<br> Sözleşme Onayı : {{model.isContract}}<br>            Ek
+            Belge : {{model.attachment}}<br> Dil Seçme <i>(Dirty)</i> : {{language.dirty}}
+
+        </div>
+
+
+    </form>
+
+</div>

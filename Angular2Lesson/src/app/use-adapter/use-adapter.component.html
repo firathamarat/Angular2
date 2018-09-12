@@ -1,0 +1,13 @@
+<app-demo-page *ngFor='let insan of this.insanlar' [personData]="insan" (personView)="viewFunction($event)"></app-demo-page>
+
+<h2>Bildirim Gönderigddglen Kişiler</h2>
+<span *ngIf="!GonderilenInsanList.length == 0">
+    Sayısı: {{this.GonderilenInsanList.length}} -
+    <input type="button" value="Listeyi Temizle" (click)="clearList()">
+</span>
+
+<ul>
+    <li *ngFor='let insan of this.GonderilenInsanList'>
+        Adı: {{insan.name}}, Şirketi: {{insan.company}} ► {{insan.state}}
+    </li>
+</ul>

@@ -1,0 +1,20 @@
+.myclass {
+    color: red;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.sbold {
+    font-weight: bold;
+}
+
+.sitalic {
+    font-style: italic;
+}
+
+.sunderlined {
+    text-decoration: underline;
+}
+
+.slinethrough {
+    text-decoration:line-through;
+}

@@ -1,0 +1,18 @@
+<h1>Servisten Veri Çekme</h1>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Company</th>
+        <th>About</th>
+    </tr>
+
+    <tr *ngFor='let insan of this.insanlar'>
+
+        <td>{{insan.name}}</td>
+        <td>{{insan.company}}</td>
+        <td>{{insan.about}}</td>
+
+    </tr>
+
+</table>
