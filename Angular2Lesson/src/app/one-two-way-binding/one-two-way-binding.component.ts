@@ -31,7 +31,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
 
-  //selector: İlgili Componente verilen isimdir
+  //selector: İlgili Componente verilen isimdir 
+  /*
+  NOT: Seletor kısmına noktalı şekilde yazılırsa class gibi kullanabilir veya [] köşeli yazılırsa attribute şeklinde kullanılabilir*/
+
   selector: 'one-way-binding',
 
   //template: HTML kodlarının yazıldığı alan, 

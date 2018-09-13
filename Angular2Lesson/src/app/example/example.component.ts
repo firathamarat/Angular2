@@ -44,113 +44,25 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-example',
-  template: `
-  <h2>Angular 2 Example</h2>
-
-  <input type="text" [(ngModel)]="personName" placeholder="Adınızı Giriniz">
-  <input type="text" [(ngModel)]="personNumber" placeholder="Personel Numaranız"><br>
-  <span>İşleme {{personNumber}} Personel numaralı {{personName}} ile devam edilmektedir</span>
-
-  <br><br> <!----> --- <br><br>
-
-  <input type="number" [(ngModel)]="birthYear" placeholder="Doğum Yılınızı giriniz">
-  <span *ngIf="birthYear >0">{{2018 - birthYear}} - Yaşındasınız.</span>
-
-  <br><br> <!----> --- <br><br>
-
-  <!-- (click) event'ı kullanılarak tıklama eylemi gerçekleştiğinde 'RandNuber()' fonksiyonu çalıştrıldı -->
-  <input type="button" value="Random Sayı Üret" (click)="RandNumber()">
-  <span class={{styleValue}}>Oluşturulan Randum Sayı: <b>{{RandomDeger}}</b></span>
-
-  <br><br> <!----> --- <br><br>
-
-  <input type="checkbox" [(ngModel)]="state"> Etkisiz Kıl: {{state}}<br>
-  <input type="text" [disabled]="state" placeholder="Değer Giriniz:">
-  <input type="button" [disabled]="state" value="GÖNDER">
-
-  <br><br> <!----> --- <br><br>
-
-  <input type="text" [(ngModel)] = "insert" (keyup.enter) = "insertEnterFunction(insert)" (keyup.space)="insertSpaceFunction()" placeholder="Seri Numarası Giriniz:"> → (Enter ve Space Tuşu)
-
-  <br><br> <!----> --- <br><br>
-
-  <input type="checkbox" [(ngModel)] = "mbold"> Kalın
-  <input type="checkbox" [(ngModel)] = "mitalic"> İtalik
-  <input type="checkbox" [(ngModel)] = "munderline"> Alt Çizgi
-  <input type="checkbox" [(ngModel)] = "mlinethrough"> Üst Çizgi
-  
-  <br>
-
-  <span
-  [class.sbold] = "mbold" 
-  [class.sitalic] = "mitalic" 
-  [class.sunderlined] = "munderline" 
-  [class.slinethrough] = "mlinethrough">Bu alan Chechbox hareketine göre style değiştirmektedir.</span>
-
-  <br><br> <!----> --- <br><br>
-
-  <div [class.error]= "true">Bu kısım "hasError" değişkeni true değeri taşıdığında kırmızı olmaktadır</div>
-
-  <br><br> <!----> --- <br><br>
-
-
-
-
- <ul>
-    <p class="myclass">*ngFor = "let item of items" ile ekrana veriler yazdırıldı</p>
-    <li *ngFor="let item of items">{{item.ad}} {{item.soyad}} {{item.yas}}</li>
- </ul>
-
-<ul>
-  <p class="myclass">*ngFor="let item of items; let i = index" ile ekrana veriler index numarasıyla yazdırıldı</p>
-  <li *ngFor="let item of items; let i=index">{{i}} - {{item.ad}} {{item.soyad}} {{item.yas}} </li>
-</ul>
-
-<br><br> <!----> --- <br><br><br>
-
-<input type="text" [(ngModel)]="insert" (keyup.enter)="insertFunction(insert)" placeholder="Eklenecek Değer"> (Enter)
-
-<ul>
-  <li *ngFor="let veri of veriler; let indexNumber = index">{{indexNumber}}
-  <button class="btn" (click)="deleteFunction(indexNumber)"> SİL </button> {{veri}}</li> 
-</ul>
-
-<br> <!----> --- <br><br>
-
-<input type="button" value="+" (click) = "number = number + 1">
-<input type="button" value="-" (click) = "number = number - 1">
-<span [ngClass] ="{'myclass': number>=5}">Sayaç: {{number}}</span>
-<span *ngIf="number>=5">(Maks. girilme değeri aşıldı!)</span><br>
-<span [hidden] = "number >=5">Not: En fazla 5 değeri girilebilmektedir.</span>
-
-<br> <!----> --- <br><br>
-
-<button (click) = "clickFunction($event)">
-        <span [hidden]="bildirim">KAPALI</span>
-        <span [hidden]="!bildirim">AÇIK</span>
-    </button>
-
-    <span [ngClass]="bildirim ? 'aktif' : 'pasif'">Bildirim durumu</span>
-
-    <br>
-    <hr>
-
-    <p [hidden]="!bildirim">Hidden = {{bildirim}} → Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis est maxime ratione nam obcaecati, distinctio laboriosam non neque atque, repellat harum? Voluptates facilis maxime atque dicta laborum! Soluta, doloribus magni.</p>
-
-    <p *ngIf="bildirim"> *ngIf = {{bildirim}} → Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis est maxime ratione nam obcaecati, distinctio laboriosam non neque atque, repellat harum? Voluptates facilis maxime atque dicta laborum! Soluta, doloribus magni.</p>
-    {{bildirim ? 'aktif': 'pasif'}}
- 
-  `,
+  templateUrl: 'example.component.html',
 
   //styles: [] //Stil biçimlendirmeleri yapılmaktadır, sadece bu class içinde kullanılabilmektedir
   //styleUrls: ['./example.component.css']
-  styles : [`
+  styles: [`
     
   .aktif {font-family:verdana; color:green}
   .pasif {font-family:verdana; color:brown}
 
   .error{
     color:red;
+  }
+
+  .red {
+    color:red;
+  }
+
+  .green {
+    color:green;
   }
 
 `]
@@ -245,11 +157,26 @@ export class ExampleComponent implements OnInit {
 
   bildirim = false; //bildirim adında değer oluşturulup false değeri atandı
 
-  clickFunction(){
+  clickFunction() {
 
-      this.bildirim =! this.bildirim;
+    this.bildirim = !this.bildirim;
 
   }
+
+
+  //Style biçimlendirmesi için değişken oluşturuldu
+  hasError = false;
+
+
+  //public şekilde bir stil biçimlendirmedi gerçekleştirilebilir
+  public titleStyle = {
+    "color": "orange",
+    "font-family": "verdana"
+  }
+
+
+  //Switch nesnesi için color adında değişken oluşturuldu
+   SelectColor = "blue";
 
   constructor() {
 
