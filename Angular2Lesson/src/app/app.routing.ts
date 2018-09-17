@@ -73,6 +73,8 @@ const appRoutes: Routes = [
     { path: '', component: UseRoutingComponent }, //Default değer
     { path: 'weather', component: WeatherPageComponent, canActivate: [UseGuardActiveComponent] },
     { path: 'news', component: NewsPageComponent },
+    
+    // recirectTo
 
 ];
 
