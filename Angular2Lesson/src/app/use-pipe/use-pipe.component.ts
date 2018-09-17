@@ -3,24 +3,32 @@ import { CreateServiceService } from '../create-service/create-service.service';
 
 @Component({
   selector: 'app-use-pipe',
-  template: `
-
-  <app-pipe-demo-page *ngFor='let insan of this.insanlar' [personData] ="insan"></app-pipe-demo-page>
-
-  `
+  templateUrl: 'use-pipe.component.html'
 })
 
-export class UsePipeComponent  implements OnInit {
+export class UsePipeComponent implements OnInit {
 
   //Servisten gelen değerleri tutmak için insanlar adında dizi oluşturuldu
   insanlar = [];
 
-  constructor(UsePipeComponent : CreateServiceService) {
+  constructor(UsePipeComponent: CreateServiceService) {
 
     //useService ile gelen değerleri insanlar dizisinin içine atandı
     this.insanlar = UsePipeComponent.People;
 
   }
+
+
+  //Other Pipe Use
+  public name = "Angular.io";
+  public message = "Welcome to Angular.io";
+  public person = {
+    "firstname": "Bill",
+    "lastname": "Gates"
+  }
+
+  public Date = new Date();
+
 
   ngOnInit() {
   }

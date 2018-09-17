@@ -1,0 +1,36 @@
+<app-pipe-demo-page *ngFor='let insan of this.insanlar' [personData]="insan"></app-pipe-demo-page>
+
+<br><br><br>
+<b>OTHER PİPE</b><br>
+
+<span>Default: {{name}}</span><br>
+<span>Lowercase: {{name | lowercase}}</span><br>
+<span>Uppercase: {{name | uppercase}}</span><br>
+<span>TitleCase: {{name | titlecase}}</span><br>
+<span>Slice:3 {{name | slice:3}}</span><br>
+<span>Slice:3:5 {{name | slice:3:5 }}</span><br>
+<span>JSON: {{person | json}}</span><br>
+
+<br>
+<b>DATE PİPE</b>
+<br>
+
+<span>Default Date: {{Date}}</span><br>
+<span>Short: {{ Date | date: 'short'}}</span><br>
+<span>Medium: {{ Date | date: 'medium'}}</span><br>
+<span>LongDate: {{ Date | date: 'longDate'}}</span><br>
+<span>ShortDate: {{ Date | date: 'shortDate'}}</span><br>
+<span>FullDate: {{ Date | date: 'fullDate'}}</span><br>
+<span>ShortTime: {{ Date | date: 'shortTime'}}</span><br>
+
+<br>
+<b>NUMBER PİPE</b>
+<br>
+
+<span>{{5.678 | number :'1.2-3'}}</span><br>
+<span>{{5.678 | number :'3.4-5'}}</span><br>
+<span>{{5.678 | number :'3.1-2'}}</span><br>
+---<br>
+<span>{{0.25 | percent}}</span><br>
+<span>{{0.25 | currency}}</span><br>
+<span>{{0.25 | currency: 'EUR'}}</span><br>

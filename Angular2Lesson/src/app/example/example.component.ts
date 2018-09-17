@@ -176,7 +176,7 @@ export class ExampleComponent implements OnInit {
 
 
   //Switch nesnesi için color adında değişken oluşturuldu
-   SelectColor = "blue";
+   SelectColor = "orange";
 
   constructor() {
 
