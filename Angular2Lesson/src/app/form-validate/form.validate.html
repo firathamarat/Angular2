@@ -22,10 +22,11 @@
         <div class="form-group" [class.has-error]="departmentName.invalid && departmentName.dirty">
 
             <label class="control-label">Departman Adı: </label>
-            <input class="form-control" type="text" #departmentName="ngModel" [(ngModel)]="model.departmentName" name="departmentName"
-                required minlength="5">
+            <input class="form-control" type="text" [class.is-invalid]="departmentName.invalid" #departmentName="ngModel"
+                [(ngModel)]="model.departmentName" name="departmentName" required minlength="5">
 
-            <div *ngIf="departmentName.invalid && departmentName.dirty" class="alert alert-danger">Departman adı en az 5
+            <div *ngIf="departmentName.invalid && departmentName.dirty" class="alert alert-danger">Departman adı en az
+                5
                 karakter olmak üzere girilmesi gerekmektedir!</div>
 
         </div>
@@ -36,11 +37,14 @@
         <div class="form-group" [class.has-error]="departmentAddress.invalid && departmentAddress.touched">
 
             <label class="control-label">Departman Adresi: </label>
-            <input class="form-control" type="text" #departmentAddress="ngModel" [(ngModel)]="model.departmentAddress" name="departmentAddress"
-                required minlength="10">
+            <input class="form-control" type="text" [class.is-invalid]="departmentAddress.invalid" #departmentAddress="ngModel"
+                [(ngModel)]="model.departmentAddress" name="departmentAddress" required minlength="10">
 
-            <div *ngIf="departmentAddress.invalid && departmentAddress.touched" class="alert alert-danger">Departman adresinin
+            <div *ngIf="departmentAddress.invalid && departmentAddress.touched" class="alert alert-danger">Departman
+                adresinin
                 en az 10 karakter olmak üzere girilmesi gerekmektedir!</div>
+
+            <!-- [class.d-none]="departmentAddress.valid || departmentAddress.untouched" -->
 
         </div>
 
@@ -71,7 +75,8 @@
         <label>Sözleşme Onayı</label>
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="isContract" [(ngModel)]="model.isContract"> Sözleşmeden yer alan maddeleri okudum
+                <input type="checkbox" name="isContract" [(ngModel)]="model.isContract"> Sözleşmeden yer alan maddeleri
+                okudum
                 kabul ediliyorum.
             </label>
         </div>
@@ -102,12 +107,17 @@
 
         <div class="container">
 
-            <b>FORM ÖZETİ</b> | → Pristine: {{form.pristine}} - Valid: {{form.valid}} <br> Departman Adı : {{model.departmentName}}<br>            Departman
-            Adresi : {{model.departmentAddress}}<br> Seçilen Dil : {{model.language}}<br> Sözleşme Onayı : {{model.isContract}}<br>            Ek
+            <b>FORM ÖZETİ</b> | → Pristine: {{form.pristine}} - Valid: {{form.valid}} <br> Departman Adı :
+            {{model.departmentName}}<br> Departman
+            Adresi : {{model.departmentAddress}}<br> Seçilen Dil : {{model.language}}<br> Sözleşme Onayı :
+            {{model.isContract}}<br> Ek
             Belge : {{model.attachment}}<br> Dil Seçme <i>(Dirty)</i> : {{language.dirty}}
 
-        </div>
+            <br><br>
+            <b>JSON EXPORT: </b><br>
+            {{form.value | json}}
 
+        </div>
 
     </form>
 

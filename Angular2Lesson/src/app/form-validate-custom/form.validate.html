@@ -16,39 +16,46 @@
         <div class="form-group" [class.has-error]="departmentName.invalid && departmentName.dirty">
 
             <label class="control-label">Departman Adı: </label>
-            <input class="form-control" type="text" #departmentName="ngModel" [(ngModel)]="model.departmentName" name="departmentName"
-                required minlength="5" pattern="^D.*" (ngModelChange)="upperCase($event, 'departmentName')">
+            <input class="form-control" type="text" [class.is-invalid]="departmentName.invalid" #departmentName="ngModel"
+                [(ngModel)]="model.departmentName" name="departmentName" required minlength="5" pattern="^D.*"
+                (ngModelChange)="upperCase($event, 'departmentName')">
 
             <!-- Her bir input için bir fonksiyon kullanılacak ise upperCase($event) işimizi görecektir
                 fakat aynı fonksiyon içerisinde birden fazla input ve görev yer alacaksa extra bir parametreye ihtiyac duyulmaktadır -->
 
-            <div *ngIf="departmentName.invalid && departmentName.dirty" class="alert alert-danger">Departman Adı "D" harfiyle
+            <div *ngIf="departmentName.invalid && departmentName.dirty" class="alert alert-danger">Departman Adı "D"
+                harfiyle
                 başlaması ve en az 5 karakter olması gerekmektedir!</div>
 
         </div>
 
+
+        <!-- ^\d{10}$ - 10 karakter girilmesini sağlayan pattern -->
 
 
         <!-- Departman adresinin tamamının büyük harf ile yazılması istenmektedir -->
         <div class="form-group" [class.has-error]="departmentAddress.invalid && departmentAddress.touched">
 
             <label class="control-label">Departman Adresi: </label>
-            <input class="form-control" type="text" #departmentAddress="ngModel" [(ngModel)]="model.departmentAddress" name="departmentAddress"
-                required minlength="10" (ngModelChange)="upperCase($event, 'departmentAddress')">
+            <input class="form-control" type="text" [class.is-invalid]="departmentAddress.invalid" #departmentAddress="ngModel"
+                [(ngModel)]="model.departmentAddress" name="departmentAddress" required minlength="10" (ngModelChange)="upperCase($event, 'departmentAddress')">
 
-            <div *ngIf="departmentAddress.invalid && departmentAddress.touched" class="alert alert-danger">Departman adresinin
+            <div *ngIf="departmentAddress.invalid && departmentAddress.touched" class="alert alert-danger">Departman
+                adresinin
                 en az 10 karakter olmak üzere girilmesi gerekmektedir!</div>
 
         </div>
 
 
-        <div class="form-group" [class.has-error]="email.invalid && email.touched">
+        <div class="form-group" [class.is-invalid]="email.invalid && email.touched">
             <label class="control-label">E-posta Adresi:</label>
-            <input class="form-control" type="text" #email="ngModel" [(ngModel)]="model.email" name="email" [pattern]="emailPattern" placeholder="bill@microsoft.com">
+            <input class="form-control" type="text" #email="ngModel" [(ngModel)]="model.email" name="email" [pattern]="emailPattern"
+                placeholder="bill@microsoft.com">
 
             <!-- form-validate-custom.component içinde emailPattern tanımlandı -->
 
-            <div *ngIf="email.invalid && email.touched" class="alert alert-danger">Lütfen geçerli bir e-posta adresi giriniz!</div>
+            <div *ngIf="email.invalid && email.touched" class="alert alert-danger">Lütfen geçerli bir e-posta adresi
+                giriniz!</div>
         </div>
 
 
@@ -57,14 +64,23 @@
 
         <div class="form-group">
             <label class="control-label">Maaş Beklentisi: </label>
-            <input class="form-control" type="text" #sallery="ngModel" [(ngModel)]="model.sallery" name="sallery" (keypress)="salleryCheckValue($event)">
+            <input class="form-control" type="text" #sallery="ngModel" [(ngModel)]="model.sallery" name="sallery"
+                (keypress)="salleryCheckValue($event)">
+
+            <!--
+                <div *ngIf="sallery.error && (sallery.invalid || sallery.touched)">
+                    <small class="text-danger" *ngIf="sallery.errors.required">1</small>
+                    <small class="text-danger" *ngIf="sallery.errors.pattern">2</small>
+                </div>
+                -->
+
         </div>
 
 
 
 
         <!-- Component sayfasında hasLanguageError değişkeni oluşturuldu -->
-        <div class="form-group" [class.has-error]="hasLanguageError && language.dirty">
+        <div class="form-group" [class.,s-invalid]="hasLanguageError && language.dirty">
             <label class="control-label">Lütfen Dil Seçiniz:</label>
 
             <!-- Blur: Ayrıldığında Change: Değiştirildiğinde-->
@@ -87,7 +103,8 @@
         <label>Sözleşme Onayı</label>
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="isContract" [(ngModel)]="model.isContract"> Sözleşmeden yer alan maddeleri okudum
+                <input type="checkbox" name="isContract" [(ngModel)]="model.isContract"> Sözleşmeden yer alan maddeleri
+                okudum
                 kabul ediliyorum.
             </label>
         </div>
@@ -109,6 +126,21 @@
         </div>
 
         <button type="submit" class="btn btn-primary container" [disabled]="form.invalid==true || hasLanguageError==true || model.isContract==false">Kaydet</button>
+
+
+        <br><br>
+        departmentName touched = > {{departmentName.touched}}<br>
+        departmentName untouched = > {{departmentName.untouched}}<br>
+
+        --<br>
+
+        departmentName pristine = > {{departmentName.pristine}}<br>
+
+        --<br>
+
+        departmentName valid = > {{departmentName.valid}}<br>
+        departmentName invalid = > {{departmentName.invalid}}<br>
+
 
     </form>
 
